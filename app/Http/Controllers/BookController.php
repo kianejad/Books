@@ -43,9 +43,10 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        return view("books.show", [
-            "book" => Book::query()->findOrFail($id),
-        ]);
+        $images = array_slice(scandir(public_path('gallary')), 2);
+        $book =  Book::query()->findOrFail($id);
+//        dd($images);
+        return view("books.show",compact('images','book'));
     }
 
     /**
