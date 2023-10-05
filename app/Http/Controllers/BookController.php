@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use Exception;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
@@ -33,9 +36,14 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        Book::query()->create($request->validated());
-        return redirect()->route("books.index")->with('success', $request->title . "book added successfully");
 
+        try {
+            Book::query()->create($request->validated());
+            return redirect()->route("books.index")->with('success', $request->title . "book added successfully");
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return redirect(status: 500)->route('books.create')->with('fail', 'book didnt add!');
+        }
     }
 
     /**
@@ -45,7 +53,6 @@ class BookController extends Controller
     {
 
         $book =  Book::query()->findOrFail($id);
-//        dd($book->gallery);
         $galleries = json_decode($book->gallery,true);
         return view("books.show",compact('book','galleries'));
     }
@@ -53,21 +60,26 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Book $book)
     {
-        return view("books.edit", [
-            "book" => Book::query()->findOrFail($id),
-        ]);
+        return view("books.edit",compact('book'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateBookRequest $request, string $id)
     {
-        $book = Book::query()->findOrFail($id);
-        $book->update($request->validated());
-        return redirect()->route("books.index");
+//        dd($request->validated());
+        try {
+            $book = Book::query()->findOrFail($id);
+            $book->update($request->validated());
+            return redirect(status: 200)->route("books.index")->with('success', $request->title . "book updated successfully");
+        }catch (Exception $e){
+            Log::error($e->getMessage());
+            return redirect(status: 500)->route('books.edit', $book)->with('fail', 'book didnt update!');
+        }
+
     }
 
     /**
@@ -75,7 +87,14 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        Book::query()->findOrFail($id)->delete();
-        return redirect()->route("books.index");
+        try {
+            Book::query()->findOrFail($id)->delete();
+
+            return redirect(status: 200)->route("books.index")->with('success',  "book deleted successfully");
+        }catch (Exception $e){
+            Log::error($e->getMessage());
+            return redirect(status: 500)->route('books.index')->with('fail', 'book didnt delete!');
+        }
+
     }
 }

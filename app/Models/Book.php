@@ -16,6 +16,10 @@ class Book extends Model
         'price',
         'isbn',
         'description',
-        'gallery',
+    ];
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
     ];
 }

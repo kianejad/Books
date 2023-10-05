@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("author");
             $table->integer("price");
             $table->text("description");
-            $table->json("gallery");
+            $table->json("gallery")->nullable();
             $table->integer("isbn")->unique();
             $table->softDeletes();
             $table->timestamps();
