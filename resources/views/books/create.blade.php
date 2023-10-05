@@ -1,3 +1,65 @@
-<div>
-    <!-- He who is contented is rich. - Laozi -->
-</div>
+@extends('layouts.main')
+@section('title', 'create')
+@section('content')
+    <div class="container">
+        <form action="{{ route('books.store') }}" method="POST">
+            @csrf
+            <div class="form-group">
+
+                <label for="title" >Book Name</label>
+                <input
+                    type="text"
+                    class="form-control @error('title') is-invalid @enderror"
+                    id="title"
+                    name="title"
+                    placeholder="Enter book name"
+                />
+                @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+
+            </div>
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input
+                    type="text"
+                    class="form-control @error('author') is-invalid @enderror"
+                    id="author"
+                    name="author"
+                    placeholder="Enter author name"
+                />
+                @error('author')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="publisher">Publisher</label>
+                <input
+                    type="text"
+                    class="form-control @error('publisher') is-invalid @enderror"
+                    id="publisher"
+                    name="publisher"
+                    placeholder="Enter publisher name"
+                />
+                @error('publisher')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input
+                    type="number"
+                    class="form-control @error('price') is-invalid @enderror"
+                    id="price"
+                    name="price"
+                    placeholder="Enter price"
+                />
+                @error('price')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+@endsection

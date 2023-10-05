@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateRequest;
+use App\Models\Book;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -20,17 +23,19 @@ class BookController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): void
+    public function create()
     {
-        //
+        return view("books.create");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): void
+    public function store(CreateRequest $request)
     {
-        //
+       dd($request->validated());
+       Book::query()->create($request->validated());
+        return redirect()->route("books.index")->with('success', $request->title . "book added successfully");
     }
 
     /**

@@ -2,6 +2,9 @@
 @section('title', 'Books')
 @section('content')
     <div class="container">
+        @if(isset($success))
+            {{$success}}
+        @endif
         <table class="table table-striped">
             <thead>
             <tr>
