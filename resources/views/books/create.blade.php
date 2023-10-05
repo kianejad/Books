@@ -2,12 +2,14 @@
 @section('title', 'create')
 @section('content')
     <div class="container">
-        <form action="{{ route('books.store') }}" method="POST">
+
+        <form action="{{ route('books.store') }}" method="POST" class="d-flex flex-column gap-3 mt-4">
             @csrf
             <div class="form-group">
 
-                <label for="title" >Book Name</label>
+                <label for="title">Book Name</label>
                 <input
+                    value="{{ old('title') }}"
                     type="text"
                     class="form-control @error('title') is-invalid @enderror"
                     id="title"
@@ -22,6 +24,7 @@
             <div class="form-group">
                 <label for="author">Author</label>
                 <input
+                    value="{{ old('author') }}"
                     type="text"
                     class="form-control @error('author') is-invalid @enderror"
                     id="author"
@@ -33,21 +36,24 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="publisher">Publisher</label>
+
+                <label for="publisher">isbn</label>
                 <input
+                    value="{{ old('isbn') }}"
                     type="text"
                     class="form-control @error('publisher') is-invalid @enderror"
-                    id="publisher"
-                    name="publisher"
-                    placeholder="Enter publisher name"
+                    id="isbn"
+                    name="isbn"
+                    placeholder="Enter isbn name"
                 />
-                @error('publisher')
+                @error('isbn')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
                 <input
+                    value="{{ old('price') }}"
                     type="number"
                     class="form-control @error('price') is-invalid @enderror"
                     id="price"

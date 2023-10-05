@@ -30,31 +30,15 @@
                         style="font-size: 20px;"
                     >
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('books.index') }}"
+                            ><i class="fas fa-home"></i> Books</a>
+                        </li>
+                        <li class="nav-item">
                             <a
                                 class="nav-link active"
                                 aria-current="page"
-                                href=""
-                            >Home</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=""
-                            >About</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=""
-                            >Contact</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=""
-                            >Login</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href=""
-                            >Register</a
+                                href="{{ route('books.create') }}"
+                            ><i class="fas fa-plus"></i> Add Book</a
                             >
                         </li>
                     </ul>

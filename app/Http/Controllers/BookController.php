@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateRequest;
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Book;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
@@ -31,11 +31,11 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateRequest $request)
+    public function store(StoreBookRequest $request)
     {
-       dd($request->validated());
-       Book::query()->create($request->validated());
+        Book::query()->create($request->validated());
         return redirect()->route("books.index")->with('success', $request->title . "book added successfully");
+
     }
 
     /**
@@ -43,7 +43,9 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view("books.show", [
+            "book" => Book::query()->findOrFail($id),
+        ]);
     }
 
     /**
@@ -51,7 +53,9 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view("books.edit", [
+            "book" => Book::query()->findOrFail($id),
+        ]);
     }
 
     /**
@@ -59,7 +63,9 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $book = Book::query()->findOrFail($id);
+        $book->update($request->validated());
+        return redirect()->route("books.index");
     }
 
     /**
@@ -67,6 +73,7 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Book::query()->findOrFail($id)->delete();
+        return redirect()->route("books.index");
     }
 }

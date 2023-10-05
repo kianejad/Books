@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class StoreBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,10 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=> 'bail|required|min:3|max:15|unique:books',
+            'title' => 'bail|required|min:3|max:15|unique:books',
             "author" => ["required", "string", "max:255"],
             "price" => ["required", "integer", "min:10000", "max:10000000"],
-            "isbn" => ["required", "integer", "unique:books,isbn", "digits:9"],
+            "isbn" => ["required", "integer", "unique:books,isbn"],
         ];
     }
 }
