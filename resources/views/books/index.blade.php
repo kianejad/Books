@@ -1,5 +1,5 @@
-@extends('layouts.main');
-@section('title', 'Books');
+@extends('layouts.main')
+@section('title', 'Books')
 @section('content')
     <div class="container">
         <table class="table table-striped">
