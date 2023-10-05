@@ -1,3 +1,4 @@
+
 @extends('layouts.main')
 @section('title', 'Show')
 @section('content')
@@ -8,9 +9,10 @@
                     {{-- gallery images--}}
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            @foreach($book->images as $image)
+                            @foreach($galleries as $image)
+{{--                                @dd($image)--}}
                                 <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                    <img src="{{ asset('storage/images/' . $image->name) }}" class="d-block w-100"
+                                    <img src="{{$image }}" class="d-block w-100"
                                          alt="...">
                                 </div>
                             @endforeach

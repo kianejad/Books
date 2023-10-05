@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Psy\Util\Str;
 use function MongoDB\BSON\toJSON;
@@ -24,12 +25,12 @@ class BookFactory extends Factory
             'price' => fake()->numberBetween(10000000, 10000000),
             'isbn' => fake()->unique()->randomNumber(9),
             'description' => fake()->text(150),
-            'image_path' => [
-                1,
-                2,
-                3,
-                4,
-            ],
+            'gallery' => Json::encode([
+                    fake()->imageUrl(640, 480, 'books', true, 'Faker', true),
+                    fake()->imageUrl(640, 480, 'books', true, 'Faker', true),
+                    fake()->imageUrl(640, 480, 'books', true, 'Faker', true),
+                    fake()->imageUrl(640, 480, 'books', true, 'Faker', true),
+            ])
         ];
     }
 }
