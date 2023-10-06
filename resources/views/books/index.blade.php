@@ -3,13 +3,19 @@
 @section('content')
     <div class="container">
         @if(session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 20px;">
                 <strong>Success!</strong> {{ session()->get('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+
+            <script>
+                setTimeout(function(){
+                    $('#success-alert').fadeOut('slow');
+                }, 2000);
+            </script>
         @endif
-        <table class="table table-striped">
-            <thead>
+        <table class="table table-striped mt-5">
+            <thead class="table-dark">
             <tr>
                 <th scope="col">Book Name</th>
                 <th scope="col">Author</th>

@@ -51,7 +51,6 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-
         $book =  Book::query()->findOrFail($id);
         $galleries = json_decode($book->gallery,true);
         return view("books.show",compact('book','galleries'));
